@@ -1,19 +1,19 @@
-import React from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from './routes';
 
 function AppRouter() {
-  const user = false;
+  const [user, setUser] = useState(false);
   return user ? (
     <Routes>
-      {privateRoutes.map(({ path, Component }) => (
-        <Route path={path} component={Component} key={Date.now()}/>
+      {privateRoutes.map(({ path, element }) => (
+        <Route path={path} element={element} />
       ))}
     </Routes>
   ) : (
     <Routes>
-      {publicRoutes.map(({ path, Component }) => (
-        <Route path={path} component={Component} key={Date.now()} />
+      {publicRoutes.map(({ path, element }) => (
+        <Route path={path} element={element} />
       ))}
     </Routes>
   );
