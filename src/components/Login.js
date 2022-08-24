@@ -1,8 +1,19 @@
 import { Button, Grid } from '@mui/material';
 import { Box, Container } from '@mui/system';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import firebase from 'firebase/compat/app';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './Context/Context';
 
 function Login() {
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const login = async () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    const user = await auth.signInWithPopup(provider);
+    navigate('/chat');
+  };
+
   return (
     <Container>
       <Grid
@@ -18,7 +29,9 @@ function Login() {
           direction={'column'}
         >
           <Box p={5}>
-            <Button variant={'outlined'}>Login with Google</Button>
+            <Button onClick={login} variant={'outlined'}>
+              Login with Google
+            </Button>
           </Box>
         </Grid>
       </Grid>
